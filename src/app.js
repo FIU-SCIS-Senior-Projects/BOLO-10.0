@@ -293,6 +293,32 @@ if (inDevelopmentMode) {
   });
 }
 
+function section_generator() {
+	
+    var columns = "ABCDEFGHIJ";
+	var rows = "1234567";
+
+    var sect = columns.charAt(Math.floor(Math.random() * columns.length)) + rows.charAt(Math.floor(Math.random() * rows.length));
+
+    return sect;
+};
+
+global.check_test = function(){
+	
+    var sections = section_generator();
+	/**
+	var j = 3;
+	var i = 0;
+	while(i != j)
+	{
+		var choice = section_generator();
+		sections.push(choice);
+		i++;
+	}
+	*/
+	return sections;		
+};
+
 /**
  * 404 Page / Catch all
  * if the app went though all routes and could not find a page

@@ -10,6 +10,9 @@ var Bolo = require("../models/bolo.js");
  * Responds with a the account home page.
  */
 exports.getAccountDetails = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   User.findUserByID(req.user._id, function(err, user) {
     if (err)
       next(err);
@@ -17,10 +20,19 @@ exports.getAccountDetails = function(req, res, next) {
       res.render('account', {user: user});
     }
   })
+}
+
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.getUserNotifications = function(req, res, next) {
   var listOfAgencies = req.user.agencySubscriber;
+var grid = req.session.grid;
+if(grid)
+{
   Agency.findAgenciesByID(listOfAgencies, function(err, agencies) {
     if (err)
       next(err);
@@ -28,10 +40,19 @@ exports.getUserNotifications = function(req, res, next) {
       res.render('account-notifications', {agencies: agencies});
     }
   })
+}
+
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.getAvailableAgencyNotifications = function(req, res, next) {
   var listOfAgencies = req.user.agencySubscriber;
+var grid = req.session.grid;
+if(grid)
+{
   Agency.findUnsubscribedAgenciesByID(listOfAgencies, function(err, agencies) {
     if (err)
       next(err);
@@ -39,6 +60,11 @@ exports.getAvailableAgencyNotifications = function(req, res, next) {
       res.render('account-notifications-add', {agencies: agencies});
     }
   })
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 /**
