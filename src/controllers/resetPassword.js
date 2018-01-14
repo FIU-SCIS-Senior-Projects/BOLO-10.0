@@ -32,7 +32,8 @@ exports.checkPassword = function(req, res) {
       }
     } else {
       req.flash("success_msg", 'Welcome ' + req.user.username);
-      res.redirect('/bolo');
+      req.session.grid = 0;
+      res.redirect('/checkTier');
     }
   } else {
     res.redirect('/login');
@@ -108,7 +109,7 @@ else {
                 sendPasswordChangedEmail(user);
                 console.log("The user's Password Expires on: " + newPasswordDate);
                 req.flash('success_msg', 'Password Has Been Updated for ' + user.username);
-                res.redirect('/bolo');
+                res.redirect('/checkTier');
               }
             });
           } else {

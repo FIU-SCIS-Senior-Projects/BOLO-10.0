@@ -14,18 +14,37 @@ var getErrorMessage = function(err) {
 };
 
 exports.listCategories = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   Category.findAllCategories(function(err, listOfCategories) {
     if (err)
       next(err);
     res.render('admin-category', {categories: listOfCategories})
   })
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.getCategoryForm = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   res.render('admin-category-create');
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.getCategoryDetails = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   Category.findCategoryByID(req.params.id, function(err, category) {
     if (err) {
       req.flash('error_msg', 'Could not get category details');
@@ -34,9 +53,17 @@ exports.getCategoryDetails = function(req, res) {
       res.render('admin-category-details', {category: category});
     }
   });
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.createNewCategory = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   //Holds previously entered form data
   var prevForm = {
     name1: req.body.name
@@ -73,9 +100,17 @@ exports.createNewCategory = function(req, res) {
     }
 
   }
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.getEditCategoryForm = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{  
   Category.findCategoryByID(req.params.id, function(err, category) {
     if (err) {
       req.flash('error_msg', 'Could not get category details');
@@ -84,10 +119,17 @@ exports.getEditCategoryForm = function(req, res) {
       res.render('admin-category-edit', {category: category});
     }
   });
-
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.postEditCategory = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   var prevForm = {
     name1: req.body.name
   };
@@ -132,7 +174,11 @@ exports.postEditCategory = function(req, res, next) {
 
     })
   }
-
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.removeCategory = function(req, res, next) {

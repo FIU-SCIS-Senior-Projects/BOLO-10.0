@@ -16,10 +16,18 @@ var secondary_fields = ['Info', 'Video URL', 'Summary', 'FeaturedImage',
  */
 
 module.exports.getDataAnalysis = function (req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
     Agency.findAllAgencies(function (err, listOfAgencies) {
         if (err) next(err);
         res.render('admin-data-analysis', {agencies: listOfAgencies});
     });
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 module.exports.downloadCsv = function (req, res, next) {

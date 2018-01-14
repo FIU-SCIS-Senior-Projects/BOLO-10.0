@@ -21,6 +21,9 @@ exports.getUserGuide = function(req, res, next) {
   if (res.locals.userTier == "OFFICER")
     file = appRoot + '/public/UserGuide/Officer.md';
 
+  var grid = req.session.grid;
+  if(grid)
+  {
   fs.readFile(file, function(err, data) {
     if (err)
       req.flash('error_msg', 'User Guide could not be found!');
@@ -31,4 +34,9 @@ exports.getUserGuide = function(req, res, next) {
       });
     }
   });
+  }
+  else
+  {
+	  res.redirect('/bingo');
+  }
 };
