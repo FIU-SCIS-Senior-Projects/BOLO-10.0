@@ -1,6 +1,8 @@
-package-lock.json
-
-node_modules
+src/public/UserGuide
 log
 
-src/public/UserGuide
+sslcert
+node_modules/
+jspm_packages/
+.eslintrc
+.env
