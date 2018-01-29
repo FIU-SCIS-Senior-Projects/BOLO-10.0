@@ -1,0 +1,27 @@
+extends layout
+
+block jumbo
+  .jumbotron
+    .container
+      h3 Search BOLOs
+
+block content
+  .container
+
+    form#create-bolo-form(action="/bolo/search" method="post")
+
+      +select_options( "agencyName", "Agency", agencies, true, "" )
+      
+      div#category
+        -
+          var categoryNames = ['Select a Category']
+          for (var num in categories)
+          categoryNames.push(categories[num].name);
+        +select_options( "categoryName", "Category", categoryNames)
+      
+      div.form-group
+        label(for='searchTerm') Search:
+        input#search-term.form-control(type='text', placeholder='Enter search term', name='searchTerm')
+          
+      .form-group
+        button.btn.btn-primary( type="submit" value="save") Search

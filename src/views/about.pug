@@ -1,0 +1,36 @@
+extends layout
+include includes/mixins
+
+block jumbo
+  .jumbotron
+    .container
+      h3 About Us
+block content
+  link(rel='stylesheet', href='https://cdn.quilljs.com/1.2.6/quill.snow.css')
+  
+  div(id='editor-container' style={'height': '100%', 'width': '50%', 'margin': '0 auto'})
+  
+  .container
+
+    script(rel='javascript' src='https://cdn.quilljs.com/1.2.6/quill.js')
+    script(type='text/javascript').
+      content="#{content}"
+      
+      const quill = new Quill('#editor-container', {
+        modules: {
+          toolbar: false,
+        },
+        placeholder: 'Write your content here...',
+        theme: 'snow'  // or 'bubble'
+      });
+      
+      let correctContent = content.replace(/&quot;/g, '"');
+      correctContent = correctContent.replace(/(?:\r\n|\r|\n)/g, '\\n');
+      quill.setContents(JSON.parse(correctContent));
+      quill.enable(false);
+      
+      $('#editor-container').css('border', 'none');
+      $('#editor-container').css('overflow', 'hidden');
+      $('.ql-editor').css('overflow', 'auto');
+
+      

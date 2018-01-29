@@ -1,0 +1,11 @@
+extends layout
+include includes/mixins
+
+block jumbo
+  .jumbotron
+    .container
+      h3 User Guide
+
+block content
+  .container
+    != md(text)
