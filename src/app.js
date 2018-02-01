@@ -9,12 +9,12 @@
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
-
+/* 
 var sslCredentials = {
   key: fs.readFileSync('sslcert/server-key.pem', 'utf8'),
   cert: fs.readFileSync('sslcert/server-cert.pem', 'utf8')
 }
-
+ */
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
 
@@ -339,6 +339,14 @@ app.use(function(req, res) {
 /**
  * Server Starting
  */
-var server = https.createServer(sslCredentials, app).listen(3000, function(){
+app.set('port', process.env.PORT || 3000);
+app.listen(app.get('port'), function () {
+    console.log('Express server listening on port ' + app.get('port'));
+});
+ 
+ 
+ //commented out, using local server instead
+/* var server = https.createServer(sslCredentials, app).listen(3000, function(){
   console.log("Express HTTPS server started");
 });
+ */

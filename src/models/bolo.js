@@ -50,7 +50,7 @@ var Schema = new mongoose.Schema({
   status: {
     type: String,
     enum: [
-      'ACTIVE', 'RECOVER', 'ARRESTED', 'CANCEL'
+      'ACTIVE', 'RECOVERED', 'ARRESTED', 'CANCELLED'
     ],
     required: true
   },

@@ -8,7 +8,7 @@ var confirm = require('gulp-confirm');
  * To run simply run "gulp initDB"
  */
 gulp.task("initDB", function () {
-
+	
     var options = {
         continueOnError: false,
         pipeStdout: false,
@@ -20,7 +20,8 @@ gulp.task("initDB", function () {
         stderr: true,
         stdout: true
     };
-
+	
+		
     gulp.src('./')
         .pipe(confirm({
             question: 'This script will destroy the database and set it' +
@@ -31,6 +32,8 @@ gulp.task("initDB", function () {
         .pipe(exec.reporter(reportOptions))
         .pipe(exec('node init-db.js', options))
         .pipe(exec.reporter(reportOptions));
+		
+		
 });
 
 /**

@@ -1,6 +1,7 @@
 src/public/UserGuide
 log
 
+BOLO-10.0/
 sslcert
 node_modules/
 jspm_packages/
