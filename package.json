@@ -17,7 +17,9 @@
     "unit-test": "mocha --check-leaks ./test/unit/**",
     "integration": "mocha --check-leaks ./test/integration/**",
     "cover": "istanbul cover _mocha -- ./test/unit/** ./test/integration/**",
-    "docs": "jsdoc -r -R README.md -d ./jsdoc ./src"
+    "docs": "jsdoc -r -R README.md -d ./jsdoc ./src",
+	"preinstantiate": "start \"C:/Program Files/MongoDB/Server/3.6/bin/mongod.exe\" ",
+	"instantiate": "node-dev ./src/app.js"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
