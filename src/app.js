@@ -98,7 +98,11 @@ app.use(validator({
       var reg = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!:=,;~+#%*?&<>|()./\"^\\[\\]\\-_])[A-Za-z\\d$@$!:=,;~+#%*?&<>|()./\"^\\[\\]\\-_]{10,128}");
 
       return reg.test(value);
-    }
+    },
+	isZipcode: function(value) {
+	  var reg = new RegExp("(^\\d{5}((-|\\s)\\d{4})?$)");
+	  return reg.test(value);
+	}
   }
 }));
 
