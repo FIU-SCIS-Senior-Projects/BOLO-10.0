@@ -142,6 +142,7 @@ if(grid)
     if (err)
       next(err);
     else {
+	  console.log('creating form and sending: ' + listOfAgencies);
       res.render('admin-user-create', {agencies: listOfAgencies})
     }
   });
@@ -245,10 +246,7 @@ exports.postCreateForm = function(req, res, next) {
               next(err1);
             else {
               console.log(err);
-              var listOfAgencyNames = [];
-              for (const agencyName in listOfAgencies)
-                listOfAgencyNames.push(agencyName.name);
-              prevForm.agencies = listOfAgencyNames;
+              prevForm.agencies = listOfAgencies;
               prevForm.errors = getErrorMessage(err);
               res.render('admin-user-create', prevForm);
             }

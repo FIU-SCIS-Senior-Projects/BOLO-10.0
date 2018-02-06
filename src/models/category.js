@@ -1,10 +1,13 @@
 var mongoose = require('mongoose');
+//this middleware is used to check for duplicates case insensitively
+var uniqueValidator = require('mongoose-unique-validator');
 
 var Schema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+	uniqueCaseInsensitive: true
   },
   createdOn: {
     type: Date,
@@ -15,6 +18,8 @@ var Schema = new mongoose.Schema({
     type: [String]
   }
 });
+
+Schema.plugin(uniqueValidator, {message: 'Agency Name Must Be Unique'});
 
 var Category = module.exports = mongoose.model('category', Schema);
 

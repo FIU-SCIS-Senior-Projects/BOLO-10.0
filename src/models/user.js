@@ -10,7 +10,7 @@ var Schema = new mongoose.Schema({
     unique: [
       true, 'Username already exists'
     ],
-    lowercase: true,
+	lowercase: true,
     trim: true
   },
   email: {
