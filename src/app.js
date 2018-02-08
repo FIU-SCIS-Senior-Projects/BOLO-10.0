@@ -339,6 +339,6 @@ app.use(function(req, res) {
 /**
  * Server Starting
  */
-var server = https.createServer(sslCredentials, app).listen(3000, function(){
+var server = https.createServer(sslCredentials, app).listen(443, function(){
   console.log("Express HTTPS server started");
 });
