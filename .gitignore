@@ -1,5 +1,5 @@
-src/public/UserGuide
 log
+jsdoc
 
 sslcert
 node_modules/
