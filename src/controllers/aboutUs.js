@@ -10,17 +10,42 @@ const UserGuide = require('../models/userguide');
  * This function is to display the AboutUsFIU page.
  */
 exports.getAboutUs = function(req, res, next) {
-  UserGuide.findByTitle('About Us', function(err, userGuide) {
-    if (err) {
-      next(err);
-    } else {
-      console.log('userguide content:', userGuide.content);
-      res.render('about', {
-        content: userGuide.content
-      });
-    }
-  });
+if(req.isAuthenticated())
+{
+	var grid = req.session.grid;
+	if(grid)
+	{	
+	  UserGuide.findByTitle('About Us', function(err, userGuide) {
+		if (err) {
+		  next(err);
+		} else {
+		  console.log('userguide content:', userGuide.content);
+		  res.render('about', {
+			content: userGuide.content
+		  });
+		}
+	  });
+	}
 
+	else
+	{
+		res.redirect('/bingo');
+	}
+}
+
+else
+{
+	UserGuide.findByTitle('About Us', function(err, userGuide) {
+		if (err) {
+		  next(err);
+		} else {
+		  console.log('userguide content:', userGuide.content);
+		  res.render('about', {
+			content: userGuide.content
+		  });
+		}
+	});
+}
   // fs.readFile(__dirname + '/../public/AboutUs.md', function(err, data) {
   //   if (err)
   //     next(err);

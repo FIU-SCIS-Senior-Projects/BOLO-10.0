@@ -458,6 +458,9 @@ exports.listBolos = function(req, res, next) {
  * Gets the bolo view
  */
 exports.renderBoloPage = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   Agency.findAllAgencies(function(err, listOfAgencies) {
     if (err)
       console.log(err);
@@ -465,12 +468,21 @@ exports.renderBoloPage = function(req, res, next) {
       res.render('bolo', {agencies: listOfAgencies, isRoot: res.locals.userTier === 'ROOT'});
     }
   });
+
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 /**
  * Handle requests to view the details of a bolo
  */
 exports.getBoloDetails = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   // Check if ObjectId is valid
   if (req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
     Bolo.findBoloByID(req.params.id, function(err, bolo) {
@@ -498,6 +510,11 @@ exports.getBoloDetails = function(req, res, next) {
   } else {
     next();
   }
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.subscribeToBOLO = function(req, res, next) {
@@ -887,6 +904,9 @@ exports.renderBoloAsPDF = function(req, res, next) {
  * Renders the bolo create form
  */
 exports.getCreateBolo = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   Category.findAllCategories(function(err, listOfCategories) {
     if (err) {
       req.flash('error_msg', 'Could not load the Categories on the database');
@@ -895,6 +915,11 @@ exports.getCreateBolo = function(req, res) {
       res.render('bolo-create', {categories: listOfCategories});
     }
   })
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 /**
@@ -1505,6 +1530,9 @@ function dateDiffInYears(a, b) {
  * List archived bolos
  */
 exports.renderArchivedBolos = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   const tier = req.user.tier;
   const isRoot = tier === 'ROOT';
   Bolo.findOldestArchivedBolos(tier, req, 1, 'reportedOn', function(err, bolo) {
@@ -1531,6 +1559,11 @@ exports.renderArchivedBolos = function(req, res, next) {
       res.render('bolo-archive', { isRoot });
     }
   );
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 /**
@@ -1719,6 +1752,9 @@ exports.purgeArchivedBolos = function(req, res, next) {
  * Searches though all bolos where the user has access
  */
 exports.getBoloSearch = function(req, res, next) {
+var grid = req.session.grid;
+if(grid)
+{
   Agency.findAllAgencies(function(err, listOfAgencies) {
     if (err)
       console.log(err);
@@ -1741,6 +1777,11 @@ exports.getBoloSearch = function(req, res, next) {
       });
     }
   })
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 /**

@@ -82,8 +82,16 @@ var Schema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
+  },
+  bingoCard: {
+	type: [[String]]
   }
 });
+
+function random_character() {
+    var chars = "123456789ABCDEFGHIJKLMNPQURSTUVWXYZ";
+    return chars.substr( Math.floor(Math.random() * (chars.length - 1)), 1);
+};
 
 var User = module.exports = mongoose.model('user', Schema);
 
@@ -94,16 +102,24 @@ var User = module.exports = mongoose.model('user', Schema);
  * the controller
  */
 module.exports.createUser = function(newUser, callback) {
-  bcrypt.genSalt(10, function(err, salt) {
-    if (err)
-      console.log(err);
-    bcrypt.hash(newUser.password, salt, null, function(err, hash) {
-      if (err)
-        throw(err);
-      newUser.password = hash;
-      newUser.save(callback);
+    var card = [];
+    for(i = 0; i < 7; i++) {
+      var row = [];
+      for(j = 0; j < 10; j++) {
+        var cell = random_character() + random_character();
+        row.push(cell);
+      }
+      card.push(row);
+    }
+    newUser.bingoCard = card;
+    bcrypt.genSalt(10, function (err, salt) {
+        if (err) console.log(err);
+        bcrypt.hash(newUser.password, salt, null, function (err, hash) {
+            if (err) throw (err);
+            newUser.password = hash;
+            newUser.save(callback);
+        })
     })
-  })
 };
 
 module.exports.findAllUsers = function(callback) {
@@ -186,4 +202,24 @@ module.exports.unsubscribeFromAgencies = function(userId, agenciesId, callback) 
       }
     }
   }, callback);
+};
+
+module.exports.newBingoCard = function (id, callback) {
+  var card = [];
+  for(i = 0; i < 7; i++) {
+    var row = [];
+    for(j = 0; j < 10; j++) {
+      var cell = random_character() + random_character();
+      row.push(cell);
+    }
+    card.push(row);
+  }
+  User.findUserByID (id, function (err, user) {
+    if (err) next(err);
+    user.bingoCard = card;
+    user.save(function (err) {
+      if (err) next(err);
+    });
+  })
+
 };

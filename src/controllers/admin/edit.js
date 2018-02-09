@@ -11,6 +11,9 @@ var updateFn = require('./updateUserGuide');
  * Gets the about us editor
  */
 exports.getAboutUsForm = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   UserGuide.findByTitle('About Us', function(err, userGuide) {
     if (err) {
       next(err);
@@ -21,6 +24,11 @@ exports.getAboutUsForm = function(req, res) {
       });
     }
   });
+}
+else
+{
+	res.redirect('/bingo');
+}
 
   // fs.readFile(appRoot + '/public/AboutUs.md', function(err, data) {
   //   if (err) {
@@ -138,6 +146,9 @@ exports.saveAboutUs = function(req, res) {
 };
 
 exports.getLoginPageForm = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   fs.readFile(appRoot + '/public/Login.md', function(err, data) {
     if (err) {
       console.log(err);
@@ -153,10 +164,23 @@ exports.getLoginPageForm = function(req, res) {
       res.render('admin-edit-login', {markdown: data.toString()});
     }
   });
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.getDataSubscribers = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
       res.render('admin-data-subscribers');
+}
+else
+{
+	res.redirect('/bingo');
+}
 }
 
 exports.saveLoginPage = function(req, res) {
@@ -176,7 +200,9 @@ exports.saveLoginPage = function(req, res) {
 };
 
 exports.listUserGuideSectionsAndTitle = function(req, res, next) {
-
+var grid = req.session.grid;
+if(grid)
+{
   //Get sections
   UserGuide.findAllSectionsButAboutUs(function(err, listOfSections) {
     if (err)
@@ -201,6 +227,11 @@ exports.listUserGuideSectionsAndTitle = function(req, res, next) {
     }
 
   });
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.saveUserGuideTitle = function(req, res, next) {
@@ -223,6 +254,9 @@ exports.saveUserGuideTitle = function(req, res, next) {
 };
 
 exports.getUserGuideSectionForm = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   if (req.params.id) {
     UserGuide.findSectionByID(req.params.id, function(err, section) {
       if (err) {
@@ -266,6 +300,11 @@ exports.getUserGuideSectionForm = function(req, res) {
     };
     res.render('admin-edit-userGuide-section', preFill);
   }
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.saveUserGuide = function(req, res) {
@@ -455,6 +494,9 @@ exports.previewUserGuide = function(req, res) {
 };
 
 exports.getNicEditForm = function(req, res) {
+var grid = req.session.grid;
+if(grid)
+{
   fs.readFile('./public/nicEdit/nicEditorIcons.gif', function(err, data) {
     if (err) {
       console.log(err);
@@ -470,6 +512,11 @@ exports.getNicEditForm = function(req, res) {
       res.render('admin-edit-aboutUs', {markdown: data.toString()});
     }
   })
+}
+else
+{
+	res.redirect('/bingo');
+}
 };
 
 exports.saveNicEditForm = function(req, res) {

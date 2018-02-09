@@ -7,6 +7,14 @@
 //'use strict';
 
 var http = require('http');
+var https = require('https');
+var fs = require('fs');
+
+var sslCredentials = {
+  key: fs.readFileSync('sslcert/server-key.pem', 'utf8'),
+  cert: fs.readFileSync('sslcert/server-cert.pem', 'utf8')
+}
+
 var path = require('path');
 global.appRoot = path.resolve(__dirname);
 
@@ -293,6 +301,32 @@ if (inDevelopmentMode) {
   });
 }
 
+function section_generator() {
+	
+    var columns = "ABCDEFGHIJ";
+	var rows = "1234567";
+
+    var sect = columns.charAt(Math.floor(Math.random() * columns.length)) + rows.charAt(Math.floor(Math.random() * rows.length));
+
+    return sect;
+};
+
+global.check_test = function(){
+	
+    var sections = section_generator();
+	/**
+	var j = 3;
+	var i = 0;
+	while(i != j)
+	{
+		var choice = section_generator();
+		sections.push(choice);
+		i++;
+	}
+	*/
+	return sections;		
+};
+
 /**
  * 404 Page / Catch all
  * if the app went though all routes and could not find a page
@@ -305,7 +339,6 @@ app.use(function(req, res) {
 /**
  * Server Starting
  */
-app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'), function() {
-  console.log('Express server listening on port ' + app.get('port'));
+var server = https.createServer(sslCredentials, app).listen(443, function(){
+  console.log("Express HTTPS server started");
 });
