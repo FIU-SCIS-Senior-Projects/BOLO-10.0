@@ -1,6 +1,6 @@
 {
   "name": "BOLOFlyerCreatorApp",
-  "version": "9.0.0",
+  "version": "10.0.0",
   "engines": {
     "node": "8.1.4",
     "npm": "5.0.3"
@@ -14,7 +14,7 @@
     "start": "node ./src/app.js",
     "pretest": "jshint ./test/** ./src/**",
     "test": "istanbul cover _mocha --check-leaks -- ./test/unit/** ./test/integration/**",
-    "unit-test": "mocha --check-leaks ./test/unit/**",
+    "unit-test": "mocha --check-leaks test/unit",
     "integration": "mocha --check-leaks ./test/integration/**",
     "cover": "istanbul cover _mocha -- ./test/unit/** ./test/integration/**",
     "docs": "jsdoc -r -R README.md -d ./jsdoc ./src",
@@ -37,12 +37,12 @@
     "express": "4.12.x",
     "express-messages": "*",
     "express-session": "1.7.6",
-    "express-validator": "*",
+    "express-validator": "^4.3.0",
     "fast-csv": "^2.1.0",
     "gm": "^1.21.1",
     "hat": "0.0.3",
     "iframe": "^0.3.1",
-    "image-size": "^0.6.0",
+    "image-size": "^0.6.2",
     "imagemin": "^4.0.0",
     "j-i-c": "^2.0.2",
     "jimp": "^0.2.9",
@@ -51,7 +51,7 @@
     "lodash": "^3.10.1",
     "marked": "latest",
     "method-override": "2.3.3",
-    "moment": "*",
+    "moment": "^2.20.1",
     "moment-timezone": "^0.5.5",
     "mongodb": "latest",
     "mongoose": "^5.0.3",
@@ -93,6 +93,7 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
+    "express-mocks-http": "0.0.11",
     "gulp": "^3.9.1",
     "gulp-confirm": "latest",
     "gulp-exec": "latest",
@@ -102,7 +103,8 @@
     "mocha": "^2.3.3",
     "mockery": "^1.4.0",
     "nock": "^2.13.0",
-    "sinon": "^1.17.0"
+    "sinon": "^1.17.0",
+    "supertest": "^3.0.0"
   },
   "license": "MIT"
 }

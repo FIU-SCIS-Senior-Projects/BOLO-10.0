@@ -14,7 +14,7 @@ mongoose.connect(config.db);
 mongoose.Promise = require('bluebird');
 
 var nullAgency = new Agency({
-    name: 'default',
+    name: 'NULL',
     emailDomain: 'null@null.com',
     address: 'n/a',
     city: 'n/a',
