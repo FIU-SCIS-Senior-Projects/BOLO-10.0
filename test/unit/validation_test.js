@@ -5,16 +5,14 @@
 */
 var expecting = require('chai').expect;
 var assert = require('chai').assert;
-var app = require('../../src/app.js');
 var request = require('supertest');
-var bodyParser = require('body-parser');
-var httpMock = require('express-mocks-http');
+var validator = require('express-validator');
+var customValidation = require('../../src/services/input-validation');
+var config = require('../../src/config');
 
 
-app.post('/',function(req,res){
-	req.checkBody('zip').isZipcode();
-	res.json({errors: req.validationErrors()});
-});
+
+
 
 
 //TODO: Test isZipcode validator for zipcode in app.js
@@ -22,8 +20,16 @@ app.post('/',function(req,res){
 //enter invalid zipcodes
 
 describe('Test that the validator responds correctly to various zip codes', function(){
+
 	
-	const {check, validationResult} = require('express-validator/check');
+	var app = require('express')();
+	app.use(customValidation(validator));
+	//app get route allows to test any value of zips
+	app.get('/:id', function(req, res){
+		req.body = {zip:zips[parseInt(req.params.id)]};
+		req.checkBody('zip', `${req.zip} is not a valid zipcode`).isZipcode();
+		res.status(200).send({errors: req.validationErrors()});
+	});
 	var zips = [
 		'12345',
 		'1234',
@@ -44,13 +50,13 @@ describe('Test that the validator responds correctly to various zip codes', func
 	
 	it(`test the zipcode validator with the valid zipcode ${zips[0]}`,function(done){
 		request(app)
-			.post('/')
+			.get('/0')
 			.set('Accept', 'application/json')
-			.send({zip: zips[0]})
 			.expect('Content-Type', /json/)
-			.end(function(err, resp){
-				console.log(resp.body);
-				done();
+			.end(function(err, res){
+				console.log(res.body);
+				expecting(res.body.errors).to.be.false;
+				done()
 			})
 			
 	});
