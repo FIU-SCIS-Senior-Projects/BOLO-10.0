@@ -9,7 +9,7 @@
 var http = require('http');
 var https = require('https');
 var fs = require('fs');
-/* 
+/* this was commented out
 var sslCredentials = {
   key: fs.readFileSync('sslcert/server-key.pem', 'utf8'),
   cert: fs.readFileSync('sslcert/server-cert.pem', 'utf8')

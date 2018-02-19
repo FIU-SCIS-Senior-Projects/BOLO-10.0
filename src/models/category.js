@@ -35,10 +35,10 @@ module.exports.findCategoryByID = function(id, callback) {
   Category.findById(id, callback);
 };
 
-module.exports.findCategoryByName = function(name, callback) {
+module.exports.findCategoryByName = function(qname, callback) {
   Category.findOne({
-    name: name
-  }, callback);
+    name: qname
+  },"name", callback);
 };
 
 module.exports.removeCategory = function(id, callback) {
