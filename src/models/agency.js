@@ -91,7 +91,7 @@ module.exports.findAllActiveAgencies = function(callback) {
 module.exports.findAgencyByName = function(agencyName, callback) {
   Agency.findOne({
     name: agencyName
-  }, callback);
+  },"name", callback);
 };
 
 module.exports.removeLogo = function(id, callback) {
