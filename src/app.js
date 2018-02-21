@@ -321,3 +321,6 @@ app.listen(app.get('port'), function () {
   console.log("Express HTTPS server started");
 });
  */
+ 
+ 
+ module.exports = app;
