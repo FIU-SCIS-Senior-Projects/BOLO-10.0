@@ -157,7 +157,6 @@ else
  * Process data to create a user, respond with the result.
  */
 exports.postCreateForm = function(req, res, next) {
-
   //Holds previously entered form data
   var prevForm = {
     user1: req.body.username,
@@ -170,7 +169,7 @@ exports.postCreateForm = function(req, res, next) {
     rank1: req.body.ranktitle,
     role1: req.body.role
   };
-
+  
   //Validation of form
   var errors = [];
   req.checkBody('username', 'Username is required').notEmpty();
@@ -185,7 +184,7 @@ exports.postCreateForm = function(req, res, next) {
   var valErrors = req.validationErrors();
   for (var x in valErrors)
     errors.push(valErrors[x]);
-
+  // console.log(errors);
   //If at least one error was found
   if (errors.length) {
     console.log('Validation has failed');

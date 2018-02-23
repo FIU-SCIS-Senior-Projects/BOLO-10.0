@@ -19,7 +19,7 @@ var Schema = new mongoose.Schema({
   }
 });
 
-Schema.plugin(uniqueValidator, {message: 'Agency Name Must Be Unique'});
+Schema.plugin(uniqueValidator, {message: 'Category Name Must Be Unique'});
 
 var Category = module.exports = mongoose.model('category', Schema);
 
