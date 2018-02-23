@@ -124,8 +124,8 @@ exports.postCreateForm = function(req, res) {
   req.checkBody('address', 'Address is required').notEmpty();
   req.checkBody('city', 'City is required').notEmpty();
   req.checkBody('state', 'State is required').notEmpty();
-  req.checkBody('zip', 'Zip Code is required').notEmpty();
-  req.checkBody('phone', 'A Phone Number is required').notEmpty();
+  req.checkBody('zip', 'A Valid Zip Code is Required').isZipcode();
+  req.checkBody('phone', 'A valid US phone number is required with no symbols').isMobilePhone('en-US');
   var valErrors = req.validationErrors();
   for (var x in valErrors)
     errors.push(valErrors[x]);

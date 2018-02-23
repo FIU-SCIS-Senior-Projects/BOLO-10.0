@@ -60,6 +60,7 @@ var generalCategory = new Category({
         'Race', 'Sex', 'Height', 'Weight', 'Hair Color', 'Tattoos']
 });
 
+
 nullAgency.save(function (err, agency) {
     if (err) {
         console.log('Null Agency could not be saved:' + err);
@@ -102,6 +103,7 @@ nullAgency.save(function (err, agency) {
 });
 
 
+
 //User Guide
 
 function saveUserGuideSection(section, steps) {
@@ -111,7 +113,7 @@ function saveUserGuideSection(section, steps) {
             process.exit(p++);
         } else {
             console.log(content.title + ' section has been added: ' + content);
-            fs.writeFile('../src/public/UserGuide/' + content.id + '.md', steps, function (err) {
+            fs.writeFile(__dirname +'/../src/public/UserGuide/' + content.id + '.md', steps, function (err) {
                 if (err) {
                     console.log(content.title + ' section could not be saved: ' + err);
                     process.exit(p++);
@@ -137,7 +139,6 @@ var aboutUsSteps_R = `
   To edit the actual about us page, please click on the "Edit About Us" link
   located in the Admin Panel.
 `;
-
 var agencyManagement_R = new UserGuide({
     title: 'Agency Management',
     OFFICER: false,
@@ -467,8 +468,8 @@ var resetPWSteps =
     "4) Enter new password\n" +
     "5) Enter confirmation password\n" +
     "6) Click 'Submit'";
-
 saveUserGuideSection(aboutUs_R, aboutUsSteps_R);
+
 saveUserGuideSection(agencyManagement_R, agencyManagementSteps_R);
 saveUserGuideSection(agencyManagement_A, agencyManagementSteps_A);
 saveUserGuideSection(dataAnalysis, dataAnalysisSteps);

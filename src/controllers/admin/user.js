@@ -142,6 +142,7 @@ if(grid)
     if (err)
       next(err);
     else {
+	  console.log('creating form and sending: ' + listOfAgencies);
       res.render('admin-user-create', {agencies: listOfAgencies})
     }
   });
@@ -156,7 +157,6 @@ else
  * Process data to create a user, respond with the result.
  */
 exports.postCreateForm = function(req, res, next) {
-
   //Holds previously entered form data
   var prevForm = {
     user1: req.body.username,
@@ -169,7 +169,7 @@ exports.postCreateForm = function(req, res, next) {
     rank1: req.body.ranktitle,
     role1: req.body.role
   };
-
+  
   //Validation of form
   var errors = [];
   req.checkBody('username', 'Username is required').notEmpty();
@@ -178,12 +178,13 @@ exports.postCreateForm = function(req, res, next) {
   req.checkBody('email', 'Email is required').notEmpty();
   req.checkBody('email', 'Email is not valid').isEmailNoDomain();
   req.checkBody('badge', 'Badge No is required').notEmpty();
+  req.checkBody('badge', 'Badge No must be a number').isNumeric();
   req.checkBody('sectunit', 'Section/Unit is required').notEmpty();
   req.checkBody('ranktitle', 'Rank/Title is required').notEmpty();
   var valErrors = req.validationErrors();
   for (var x in valErrors)
     errors.push(valErrors[x]);
-
+  // console.log(errors);
   //If at least one error was found
   if (errors.length) {
     console.log('Validation has failed');
@@ -244,10 +245,7 @@ exports.postCreateForm = function(req, res, next) {
               next(err1);
             else {
               console.log(err);
-              var listOfAgencyNames = [];
-              for (const agencyName in listOfAgencies)
-                listOfAgencyNames.push(agencyName.name);
-              prevForm.agencies = listOfAgencyNames;
+              prevForm.agencies = listOfAgencies;
               prevForm.errors = getErrorMessage(err);
               res.render('admin-user-create', prevForm);
             }

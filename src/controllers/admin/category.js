@@ -63,7 +63,7 @@ else
 exports.createNewCategory = function(req, res) {
 var grid = req.session.grid;
 if(grid)
-{
+{	
   //Holds previously entered form data
   var prevForm = {
     name1: req.body.name
