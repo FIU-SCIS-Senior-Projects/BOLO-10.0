@@ -16,6 +16,17 @@ mixin input_text( name, label, placeholder, required, value, type )
     label.control-label( for=name ) #{label}
     input.form-control( name=name type=type?type:'text' placeholder=placeholder value=value id=name )
 
+mixin input_text_bingo1( name, label, placeholder, required, value, type )
+  .form-group
+    label.control-label( for=name ) #{label}
+    input.form-control(  name=name type=type?type:'text' maxlength="2" placeholder=placeholder value=value id=name oninput="next.call(this)" autofocus="autofocus")
+
+mixin input_text_bingo( name, label, placeholder, required, value, type )
+  .form-group
+    label.control-label( for=name ) #{label}
+    input.form-control(  name=name type=type?type:'text' maxlength="2" placeholder=placeholder value=value id=name oninput="next.call(this)" )
+
+	
 mixin input_text_static( name, label, placeholder, required, value, type )
   .form-group
     label.control-label( for=name ) #{label}

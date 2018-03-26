@@ -927,6 +927,7 @@ else
  */
 exports.postCreateBolo = function(req, res, next) {
 
+	console.log("\nentered date: " + req.body.dateReported + "|" + req.body.timeReported +"\n");
   Category.findAllCategories(function(err, listOfCategories) {
     if (err) {
       req.flash('error_msg', 'Could not find categories');
@@ -936,10 +937,12 @@ exports.postCreateBolo = function(req, res, next) {
       var prevForm = {
         dateReported1: req.body.dateReported,
         timeReported1: req.body.timeReported,
+		category: req.body.category,
         vid1: req.body.videoURL,
         info1: req.body.info,
         summary1: req.body.summary,
         categories: listOfCategories,
+		fields: req.body.field,
         internal1: (req.body.internal)
           ? true
           : false
@@ -957,8 +960,8 @@ exports.postCreateBolo = function(req, res, next) {
       //Create a date object using date and time reported
       const reportedDate = req.body.dateReported.split('/');
       const reportedTime = req.body.timeReported.split(':');
-      console.log(reportedDate[0] + " " + reportedDate[1] + "\n");
-      const newDate = new Date(reportedDate[2], reportedDate[0], reportedDate[1] - 1, reportedTime[0], reportedTime[1], 0, 0);
+      console.log("Date: " + reportedDate[0] + "-" + reportedDate[1] + "-" + reportedDate[2] + "\n");
+      const newDate = new Date(reportedDate[2], reportedDate[0]-1, reportedDate[1], reportedTime[0], reportedTime[1], 0, 0);
 
       //Make sure that no word inside Summary is longer than 38 characters(it would break format otherwise)
       var splitSummary =  req.body.summary.split(" ");
@@ -990,10 +993,11 @@ exports.postCreateBolo = function(req, res, next) {
           wordInInfo = "";
       }
 
-
+	  //validate date
       if (isNaN(newDate.getTime()))
         errors.push('Please Enter a Valid Date');
-
+	  
+	  //ensure category matches in the database
       Category.findCategoryByName(req.body.category, function(err, category) {
         if (err)
           console.log(err);
@@ -1027,12 +1031,14 @@ exports.postCreateBolo = function(req, res, next) {
             status: 'ACTIVE',
             fields: req.body.field
           });
-          // console.log('req.body.field: ' + req.body.field);
-          // newBolo.fields = req.body.field.map(field => field.toLowerCase());
-          // console.log(newBolo.fields);
+          console.log('req.body.field: ' + req.body.field);
+          //newBolo.fields = req.body.field.map(field -> field.toLowerCase());
+          console.log('newBolo.fields: ' + newBolo.fields);
+		  console.log("category: " + category);
           for (var i in newBolo.fields) {
             if (newBolo.fields[i] === '') {
               newBolo.fields[i] = 'N/A';
+			  req.body.fields[i] = "N/A";
             }
           }
           var buffer = {
@@ -1116,13 +1122,15 @@ exports.postCreateBolo = function(req, res, next) {
             buffer.other2.data = req.files['other2'][0].buffer.toString('base64');
             buffer.other2.contentType = req.files['other2'][0].mimeType;
           }
-
+		  //if previewing bolo
+		  console.log("\noption: " +req.body.option + "\ncategory: " + category+ "\n");
           if (req.body.option === "preview") {
             Agency.findAgencyByID(req.user.agency.id, function(err, agency) {
               console.log('newBolo' + newBolo);
               res.render('bolo-preview', {
                 bolo: newBolo,
-                category: category,
+				category: category,
+                fields: req.body.field,
                 agency: agency,
                 buffer: buffer
               });
