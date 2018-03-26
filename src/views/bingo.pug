@@ -17,17 +17,20 @@ block content
                -var sec3 = check_test()
                .form-group.row
                  .col-xs-1
-                   +input_text("value1", sec1, "", true, "", "text")
+                   +input_text_bingo1("value1", sec1, "", true, "", "text")
                    +input_text("cell1", "", "", true, sec1, "hidden")
                  .col-xs-1                 
-                   +input_text("value2", sec2, "", true, "", "text")
+                   +input_text_bingo("value2", sec2, "", true, "", "text")
                    +input_text("cell2", "", "", true, sec2, "hidden")
                  .col-xs-1         
-                   +input_text("value3", sec3, "", true, "", "text")
+                   +input_text_bingo("value3", sec3, "", true, "", "text")
                    +input_text("cell3", "", "", true, sec3, "hidden")
             .form-group
                 button.btn.btn-primary(type="submit" value="bingo") Login
         script.
-            window.onload = function() {document.getElementsByName("cell1").style.visibility = "hidden";}
-            window.onload = function() {document.getElementsByName("cell2").style.visibility = "hidden";}
-            window.onload = function() {document.getElementsByName("cell3").style.visibility = "hidden";}			
+            window.onload = function() {
+                document.getElementsByName("cell1")[0].style.visibility = "hidden";
+                document.getElementsByName("cell2")[0].style.visibility = "hidden"; 
+                document.getElementsByName("cell3")[0].style.visibility = "hidden";
+                document.getElementById("value1").focus();
+                }; 			

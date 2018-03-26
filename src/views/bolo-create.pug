@@ -5,6 +5,7 @@ block scripts
   script(src="/jquery-validation-1.15.0/form-validation.js")
   script(src="/jquery-validation-1.15.0/additional-methods.js")
   script(src="/js/JIC.min.js")
+  script(src="/js/bolo.js")
   script(src="/js/imageCompression.js")
 
 block jumbo
@@ -18,7 +19,7 @@ block content
     noscript
       h2.text-danger Javascript is disabled in your browser! You can not create a bolo without javascript enabled!
 
-    form#create-bolo-form(name='createBoloForm' action= "/bolo/create" enctype="multipart/form-data" method="post")
+    form#create-bolo-form(name='createBoloForm' action= "/bolo/create"  enctype="multipart/form-data" method="post")
       .form-group
         input(name="internal" type="checkbox" checked=internal1)
         label.checkbox-inline(for="internal") Internal
@@ -149,5 +150,5 @@ block content
       +input_textarea( "info", "Additional Info", "", false, info1 )
       +input_textarea( "summary", "Summary", "", false, summary1 )
       .form-group
-        button.btn.btn-default( name = "option" type = "submit" value = "submit") SUBMIT
-        button.btn.btn-default( name = "option" type = "submit" value = "preview" ) PREVIEW
+        button.btn.btn-default( name = "option" type = "submit" value = "submit" onclick="thisWindow()") SUBMIT
+        button.btn.btn-default( name = "option" type = "submit" value = "preview" onclick="preview()") PREVIEW

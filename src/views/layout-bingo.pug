@@ -11,6 +11,7 @@ html
         script(src="/jquery-ui-1.12.1/jquery-ui.min.js" )
         script(src="/js/ui.js" )
         script(src="/js/jquery.twbsPagination.min.js" )
+        script(src="/js/bingo.js")
         script(src="/bootstrap-3.3.7-dist/js/bootstrap.min.js" )
         script(src="/bootstrap-select-1.11.2/js/bootstrap-select.min.js" )
 
@@ -28,7 +29,7 @@ html
 
         block styles
 
-    body
+    body(onload = "start()")
         <!--[if lt IE 8]>
         p.browsehappy
             | You are using an <strong>outdated</strong> browser.
