@@ -1,11 +1,9 @@
-extends layout
+extends preview_window
 
 block jumbo
   .jumbotron
     .container
       h3 BOLO Preview
-      .pull-left
-        button.btn.btn-primary(onclick='history.go(-1);') Go Back
 
 block content
   .row
@@ -28,7 +26,7 @@ block content
         h2.text-center.text-danger.strong #{bolo.status}
     else
       div.col-xs-12
-        h2.text-center.text-danger.strong #{bolo.category.name} -- #{bolo.status}
+        h2.text-center.text-danger.strong #{category.name} -- #{bolo.status}
 
   //Render Images
   .row
@@ -77,7 +75,7 @@ block content
 
         - for (var i = 0; i < bolo.fields.length; i++)
           if (bolo.fields[i] != "N/A")
-            dt.strong #{category.fields[i]}:
+            dt.strong #{fields[i]}:
             dd #{bolo.fields[i]}
 
         dt.strong Created:
