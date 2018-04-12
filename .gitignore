@@ -1,7 +1,12 @@
-src/public/UserGuide
-log
+
+bolo-rest-api/
 
 BOLO-10.0/
+
+log
+jsdoc
+
+
 sslcert
 node_modules/
 jspm_packages/
