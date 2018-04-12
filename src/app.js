@@ -317,7 +317,7 @@ app.listen(app.get('port'), function () {
  
  
  //commented out, using local server instead
-/* var server = https.createServer(sslCredentials, app).listen(3000, function(){
+/* var server = https.createServer(sslCredentials, app).listen(443, function(){
   console.log("Express HTTPS server started");
 });
  */
