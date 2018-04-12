@@ -163,14 +163,14 @@ app.use(function(req, res, next) {
  * This ensures that the site is always using https
  */
 
-// app.use(function (req, res, next) {
-//  var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
-//  if (schema === 'https') {
-//    next();
-//  } else {
-//    res.redirect('https://' + req.headers.host + req.url);
-//  }
-// });
+app.use(function (req, res, next) {
+ var schema = (req.headers['x-forwarded-proto'] || '').toLowerCase();
+ if (schema === 'https') {
+   next();
+ } else {
+   res.redirect('https://' + req.headers.host + req.url);
+ }
+});
 
 //Main Routes
 /**
@@ -310,17 +310,19 @@ app.use(function(req, res) {
 /**
  * Server Starting
  */
-app.set('port', process.env.PORT || 3000);
-app.listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
-});
+ 
+ //uncomment this to use localhost
+// app.set('port', process.env.PORT || 3000);
+// app.listen(app.get('port'), function () {
+    // console.log('Express server listening on port ' + app.get('port'));
+// });
  
  
- //commented out, using local server instead
-/* var server = https.createServer(sslCredentials, app).listen(443, function(){
+ //comment this to use SSH
+ var server = https.createServer(sslCredentials, app).listen(443, function(){
   console.log("Express HTTPS server started");
 });
- */
+ 
  
  
  module.exports = app;
